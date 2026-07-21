@@ -239,7 +239,7 @@ button {
 
 .paper-stage {
   position: relative;
-  width: min(50vh, 480px);
+  width: min(70vh, 620px);
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -270,10 +270,10 @@ button {
 
 .letter-text {
   position: absolute;
-  top: 17%;
-  left: 21%;
-  right: 22%;
-  bottom: 10%;
+  top: 14%;
+  left: 20%;
+  right: 20%;
+  bottom: 15%;
   overflow: hidden;
   font-family: 'Caveat', cursive;
   font-size: clamp(1.15rem, 2vw, 1.55rem);
