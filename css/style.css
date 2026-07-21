@@ -276,8 +276,8 @@ button {
   bottom: 15%;
   overflow: hidden;
   font-family: 'Caveat', cursive;
-  font-size: clamp(0.9rem, 1.3vw, 1.2rem);
-  line-height: 1.5;
+  font-size: 0.7rem;
+  line-height: 1.2;
   color: var(--ink);
   white-space: pre-wrap;
   text-align: left;
