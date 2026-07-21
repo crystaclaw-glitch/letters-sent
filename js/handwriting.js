@@ -44,14 +44,21 @@ function writeByHand(container, pencilEl, pencilAudio, text, onDone) {
   let timeoutId = null;
   const containerRect = container.getBoundingClientRect();
 
-  function placePencilAt(span) {
-    if (!span) return;
-    const r = span.getBoundingClientRect();
-    pencilEl.style.left = (r.left - containerRect.left) + 'px';
-    pencilEl.style.top = (r.top - containerRect.top) + 'px';
-    pencilEl.style.opacity = '1';
-  }
+ function placePencilAt(span) {
 
+    if (!span) return;
+
+    const r = span.getBoundingClientRect();
+
+    gsap.to(pencilEl, {
+        left: r.left - containerRect.left + 6,
+        top: r.top - containerRect.top + 2,
+        duration: 0.05,
+        ease: "power1.out"
+    });
+
+    pencilEl.style.opacity = "1";
+}
   function stepDelay(ch) {
     if (ch === null) return 260;               // pause on new line
     if (/[.,!?]/.test(ch)) return 260;          // longer pause at punctuation
@@ -62,11 +69,23 @@ function writeByHand(container, pencilEl, pencilAudio, text, onDone) {
   function finish() {
     if (finished) return;
     finished = true;
-    spans.forEach((s) => { if (s) s.style.opacity = '1'; });
-    pencilEl.style.opacity = '0';
-    if (!pencilAudio.paused) pencilAudio.pause();
+
+    // Hentikan timer yang masih berjalan
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+    }
+
+    spans.forEach((s) => {
+        if (s) s.style.opacity = "1";
+    });
+
+    pencilEl.style.opacity = "0";
+    pencilAudio.pause();
+    pencilAudio.currentTime = 0;
+
     if (onDone) onDone();
-  }
+}
 
   function tick() {
     if (finished) return;
@@ -90,7 +109,19 @@ function writeByHand(container, pencilEl, pencilAudio, text, onDone) {
     index++;
     timeoutId = setTimeout(tick, delay);
   }
+  const firstSpan = spans.find(s => s !== null);
 
+if (firstSpan) {
+    const r = firstSpan.getBoundingClientRect();
+
+    pencilEl.style.left =
+        (r.left - containerRect.left + 6) + "px";
+
+    pencilEl.style.top =
+        (r.top - containerRect.top + 2) + "px";
+
+    pencilEl.style.opacity = "1";
+}
   tick();
 
   return {
