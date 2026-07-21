@@ -56,21 +56,18 @@ My Dearest,
 
 Hello. It's me again.
 
-I know this is another letter that will 
-never reach you.
+I know this is another letter that will never reach you.
 
-There are still so many words I've never
-managed to say. They've stayed hidden in 
-my notebooks, my thoughts, and countless 
-crumpled pages.
+There are still so many words I've never managed to say.
+They've stayed hidden in my notebooks, my thoughts, 
+and countless crumpled pages.
 
-Only now do I realise how much good you 
-brought into my life. Yes, there were 
-thorns, but every rose has them.
+Only now do I realise how much good you brought into my 
+life. Yes, there were thorns, but every rose has them.
 
-And somehow, out of everyone I've known, 
-yours were the only imperfections I could 
-ever accept—and the only ones I ever needed.
+And somehow, out of everyone I've known, yours were 
+the only imperfections I could ever accept—and the only 
+ones I ever needed.
 
 Always,
 Me.
