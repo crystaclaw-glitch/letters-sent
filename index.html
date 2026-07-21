@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Letters That Were Never Sent</title>
+<meta name="description" content="An interactive letter-reading experience — words that were never spoken, feelings that were never delivered." />
+
+<!-- Google Fonts: a warm handwritten display face + a quiet serif body face -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Fixed vintage desk background, shared across every scene -->
+<div class="desk-background" aria-hidden="true"></div>
+<div class="desk-vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Ambient sound toggle, always available -->
+<button id="sound-toggle" class="sound-toggle" aria-label="Toggle background music" aria-pressed="false">
+  <svg class="icon-sound-on" viewBox="0 0 24 24" width="18" height="18"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16.5 12a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12z" fill="currentColor"/><path d="M14 4.35v2.1c2.89.86 5 3.54 5 6.55s-2.11 5.69-5 6.55v2.1c4.01-.91 7-4.49 7-8.65s-2.99-7.74-7-8.65z" fill="currentColor"/></svg>
+  <svg class="icon-sound-off" viewBox="0 0 24 24" width="18" height="18" style="display:none"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M19.5 12l2.5-2.5-1.4-1.4L18 10.6l-2.5-2.5-1.4 1.4 2.5 2.5-2.5 2.5 1.4 1.4L18 13.4l2.5 2.5 1.4-1.4-2.5-2.5z" fill="currentColor"/></svg>
+</button>
+
+<!-- ============================================================
+     SCENE 1 — LANDING
+     A vintage desk scattered with unsent envelopes.
+============================================================= -->
+<section id="scene-landing" class="scene" aria-label="Landing">
+  <div id="envelope-field" class="envelope-field" aria-hidden="true"></div>
+
+  <div class="landing-copy">
+    <h1 class="landing-title">Letters That Were&nbsp;Never&nbsp;Sent</h1>
+    <p class="landing-subtitle">
+      Some words were never spoken.<br />
+      Some feelings were never delivered.
+    </p>
+    <button id="begin-btn" class="begin-button">
+      <span>Begin</span>
+    </button>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCENE 2 — CHOOSE A LETTER
+     Three envelopes, only the envelopes themselves are clickable.
+============================================================= -->
+<section id="scene-selection" class="scene" aria-label="Choose a letter" style="display:none;">
+  <h2 class="selection-title">Choose a Letter</h2>
+  <div id="selection-envelopes" class="selection-envelopes"></div>
+</section>
+
+<!-- ============================================================
+     SCENE 3 — READING
+     The paper stays fixed at screen center for the rest of the journey.
+============================================================= -->
+<section id="scene-reading" class="scene" aria-label="Reading a letter" style="display:none;">
+  <div id="paper-stage" class="paper-stage">
+    <img id="paper-img" class="paper-img" src="assets/images/paper.png" alt="" />
+    <img id="stamp-img" class="stamp-img" src="assets/images/postage_stamp1.png" alt="" />
+    <div id="pencil-cursor" class="pencil-cursor" aria-hidden="true">✎</div>
+    <div id="letter-text" class="letter-text" aria-live="polite"></div>
+  </div>
+
+  <div id="reading-nav" class="reading-nav" style="opacity:0;">
+    <button id="prev-letter" class="nav-link" disabled>← Previous Letter</button>
+    <span id="letter-counter" class="letter-counter"></span>
+    <button id="next-letter" class="nav-link">Next Letter →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     SCENE 4 — ENDING
+============================================================= -->
+<section id="scene-ending" class="scene" aria-label="Ending" style="display:none;">
+  <div class="ending-copy">
+    <p class="ending-line" id="ending-line-1">You&rsquo;ve reached the end of every letter.</p>
+    <p class="ending-line" id="ending-line-2">These were the letters that were never sent.</p>
+    <p class="ending-line" id="ending-line-3">But perhaps&hellip;<br />someone still needed to read them.</p>
+    <button id="restart-btn" class="restart-link">Read the letters again&nbsp;↺</button>
+  </div>
+</section>
+
+<!-- Audio elements -->
+<audio id="audio-bg" src="assets/audio/background_music.m4a" loop preload="auto"></audio>
+<audio id="audio-slide" src="assets/audio/paper_slide.m4a" preload="auto"></audio>
+<audio id="audio-pencil" src="assets/audio/pencil_write.m4a" loop preload="auto"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="js/letters.js"></script>
+<script src="js/envelopes.js"></script>
+<script src="js/handwriting.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

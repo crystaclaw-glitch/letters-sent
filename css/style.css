@@ -1,0 +1,377 @@
+/* =========================================================================
+   LETTERS THAT WERE NEVER SENT
+   Design tokens
+   -------------------------------------------------------------------------
+   Palette   : desk-walnut #1c130d, desk-warm #3a2618, candle #f4e4c1,
+               paper #f8f4ea, ink #362a20, wax #7d1f28, brass #b0894f
+   Type      : "Cormorant Garamond" (display, elegant serif titles)
+               "Caveat" (the handwriting itself, on paper)
+               "EB Garamond" (quiet serif for UI copy)
+   Signature : envelopes as real paper objects — idle drift, cast shadow,
+               a hand that writes the letters into being
+   ========================================================================= */
+
+:root {
+  --walnut: #1a120c;
+  --walnut-deep: #100b07;
+  --desk-warm: #3a2618;
+  --candle: #f4e4c1;
+  --paper: #f9f5ec;
+  --paper-shadow: #d8cdb8;
+  --ink: #3c2f24;
+  --ink-soft: #5a4a3a;
+  --wax: #7d2027;
+  --brass: #b3894f;
+  --brass-soft: rgba(179, 137, 79, 0.55);
+
+  --ease-out: power2.out;
+  --ease-soft: power3.inOut;
+  --ease-expo: expo.out;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--walnut-deep);
+  color: var(--ink);
+  font-family: 'EB Garamond', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* ---------------------------------------------------------------------
+   Shared desk atmosphere — background image, vignette, film grain
+--------------------------------------------------------------------- */
+
+.desk-background {
+  position: fixed;
+  inset: 0;
+  background-image: url('../assets/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: saturate(0.92) brightness(0.82);
+}
+
+.desk-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.55) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 82%, rgba(0,0,0,0.45) 100%);
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------------
+   Sound toggle
+--------------------------------------------------------------------- */
+
+.sound-toggle {
+  position: fixed;
+  top: 22px;
+  right: 26px;
+  z-index: 50;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--candle);
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(244,228,193,0.25);
+  backdrop-filter: blur(2px);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.sound-toggle:hover { background: rgba(0,0,0,0.42); transform: scale(1.06); }
+
+/* ---------------------------------------------------------------------
+   Generic scene container
+--------------------------------------------------------------------- */
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* =========================================================================
+   SCENE 1 — LANDING
+   ========================================================================= */
+
+.envelope-field {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.scattered-envelope {
+  position: absolute;
+  width: 150px;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55));
+  will-change: transform;
+  transform-origin: center center;
+}
+.scattered-envelope img {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.landing-copy {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 640px;
+}
+
+.landing-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(2.3rem, 5.4vw, 3.7rem);
+  color: var(--candle);
+  letter-spacing: 0.01em;
+  margin: 0 0 22px;
+  text-shadow: 0 2px 22px rgba(0,0,0,0.55);
+}
+
+.landing-subtitle {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.75;
+  color: rgba(244,228,193,0.82);
+  margin: 0 0 46px;
+}
+
+.begin-button {
+  position: relative;
+  padding: 14px 46px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--candle);
+  border: 1px solid var(--brass-soft);
+  border-radius: 2px;
+  background: rgba(179,137,79,0.08);
+  transition: background 0.4s ease, border-color 0.4s ease, letter-spacing 0.4s ease;
+}
+.begin-button:hover {
+  background: rgba(179,137,79,0.18);
+  border-color: var(--brass);
+  letter-spacing: 0.19em;
+}
+
+/* =========================================================================
+   SCENE 2 — CHOOSE A LETTER
+   ========================================================================= */
+
+.selection-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: var(--candle);
+  margin-bottom: 64px;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.5);
+  opacity: 0;
+}
+
+.selection-envelopes {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  z-index: 3;
+}
+
+.pick-envelope {
+  position: relative;
+  width: 172px;
+  cursor: pointer;
+  filter: drop-shadow(0 16px 22px rgba(0,0,0,0.5));
+  transition: filter 0.4s ease;
+}
+.pick-envelope img {
+  width: 100%;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+.pick-envelope:hover {
+  filter: drop-shadow(0 24px 30px rgba(0,0,0,0.6));
+}
+
+/* =========================================================================
+   SCENE 3 — READING
+   ========================================================================= */
+
+.paper-stage {
+  position: relative;
+  width: min(50vh, 480px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 26px 34px rgba(0,0,0,0.5));
+  user-select: none;
+  pointer-events: none;
+}
+
+.stamp-img {
+  position: absolute;
+  top: 6%;
+  right: 17%;
+  width: 12%;
+  transform: rotate(6deg);
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.35));
+  pointer-events: none;
+  user-select: none;
+}
+
+.letter-text {
+  position: absolute;
+  top: 17%;
+  left: 21%;
+  right: 22%;
+  bottom: 10%;
+  overflow: hidden;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+.pencil-cursor {
+  position: absolute;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  transform: translate(-2px, -14px) rotate(-18deg);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+}
+
+.reading-nav {
+  position: relative;
+  z-index: 4;
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav-link {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  color: var(--candle);
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.nav-link:hover:not(:disabled) { opacity: 1; transform: translateY(-1px); }
+.nav-link:disabled { opacity: 0.25; cursor: default; }
+
+.letter-counter {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  color: rgba(244,228,193,0.6);
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   SCENE 4 — ENDING
+   ========================================================================= */
+
+.ending-copy {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 620px;
+  padding: 0 24px;
+}
+
+.ending-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+  color: var(--candle);
+  line-height: 1.6;
+  margin: 0 0 30px;
+  opacity: 0;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.5);
+}
+
+.restart-link {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(244,228,193,0.8);
+  border-bottom: 1px solid transparent;
+  opacity: 0;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.restart-link:hover {
+  color: var(--candle);
+  border-color: var(--brass-soft);
+}
+
+/* ---------------------------------------------------------------------
+   Responsive
+--------------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .scattered-envelope { width: 108px; }
+  .selection-envelopes { gap: 26px; }
+  .pick-envelope { width: 120px; }
+  .paper-stage { width: min(78vw, 68vh, 420px); }
+  .landing-copy { max-width: 90vw; }
+  .sound-toggle { top: 16px; right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
