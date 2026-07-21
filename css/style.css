@@ -367,7 +367,7 @@ button {
   .scattered-envelope { width: 108px; }
   .selection-envelopes { gap: 26px; }
   .pick-envelope { width: 120px; }
-  .paper-stage { width: min(78vw, 68vh, 420px); }
+  .paper-stage {width: 92vw;max-width: 560px; }
   .landing-copy { max-width: 90vw; }
   .sound-toggle { top: 16px; right: 16px; }
 }
